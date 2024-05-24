@@ -2,11 +2,13 @@
 
 ## Project Overview
 
-This project provides a set of .zshrc and .bashrc scripts that customize your terminal to mimic the color scheme and behavior of the Git Bash program. By following the instructions below, you can apply these customizations to your terminal environment.
+If you're used to Git Bash and want to make the terminal look similar, you can customize the prompt to include the current Git branch and status. Here's how you can do it:
+
+This project provides a set of `.zshrc` and `.bashrc` scripts that customize the terminal to mimic the color scheme and behavior of the Git Bash program. By following the instructions below, you can apply these customizations to the terminal environment.
 
 ## Prerequisites
 
-Before you begin, you need to determine which configuration file your shell uses. The common configuration files are:
+Before you begin, you need to determine which configuration file the shell uses. The common configuration files are:
 
 - `.bashrc`
 - `.bash_profile`
@@ -16,21 +18,21 @@ Before you begin, you need to determine which configuration file your shell uses
 
 ### 1. Check if Home Directory has `.bashrc`, `.bash_profile`, or `.zshrc`
 
-Open your terminal and navigate to your home directory by typing:
+Open the terminal and navigate to the home directory by typing:
 
 ```bash
 cd ~
 ```
 
-Use the `ls` command in your terminal to list the files to see if you have any of the following configuration files:
+Use the `ls` command in the terminal to list the files to see if you have any of the following configuration files:
 
 ```bash
 ls -a ~/
 ```
 
-This command lists all files in your home directory, including hidden ones (those starting with a `.`). Look for `.bashrc`, `.bash_profile`, or `.zshrc` in the output.
+This command lists all files in the home directory, including hidden ones (those starting with a `.`). Look for `.bashrc`, `.bash_profile`, or `.zshrc` in the output.
 
-If there are too many file, use this command lists all files in your home directory and filters the output to show only the files that match `.bashrc`, `.bash_profile`, or `.zshrc`.
+If there are too many file, use this command lists all files in the home directory and filters the output to show only the files that match `.bashrc`, `.bash_profile`, or `.zshrc`.
 
 ```jsx
 ls -a ~/ | grep -E '^\.(bashrc|bash_profile|zshrc)$'
@@ -38,7 +40,7 @@ ls -a ~/ | grep -E '^\.(bashrc|bash_profile|zshrc)$'
 
 ### 2. Choose the Right File
 
-Depending on your shell, you need to update the appropriate file:
+Depending on the shell, you need to update the appropriate file:
 
 - Bash Shell: Use `.bashrc` or `.bash_profile`
 
@@ -52,7 +54,7 @@ You can edit the file using a text editor. Choose between nano or code (Visual S
 
 - To user Visual Studio Code: `code .`
 
-## How to write your own `zshrc` script
+## How to write the own `zshrc` script
 
 ### Colors
 
@@ -94,15 +96,19 @@ The PROMPT variable is used to customize the command prompt. It can include a va
 
 - `%v` and `%V`: The version of zsh.
 
-You can use these sequences to customize your prompt to show the information you find most useful. For example, if you wanted to show the full hostname, the current directory, and the current time, you could use:
+You can use these sequences to customize the prompt to show the information you find most useful. For example, if you wanted to show the full hostname, the current directory, and the current time, you could use:
 
 ```bash
 PROMPT='%M %~ %T %# '
 ```
 
-Remember to use the `setopt PROMPT_SUBST` command before setting PROMPT if If you want to use variables (like `$USER` or `$HOME`) or command substitutions (like `$(date)`) in your prompt. For example:
+Remember to use the `setopt PROMPT_SUBST` command before setting PROMPT if If you want to use variables (like `$USER` or `$HOME`) or command substitutions (like `$(date)`) in the prompt. For example:
 
 ```bash
 setopt PROMPT_SUBST
 PROMPT='Hello, $USER. The date is $(date +%Y-%m-%d). %~ %# '
 ```
+
+### precmd
+
+The `vcs_info` is a built-in zsh function for version control system information. This function supports multiple VCSs, not just Git, and provides a lot of flexibility for customizing the prompt. The `precmd` function is a special function in `zsh` that is executed before each prompt; in the setup, it's used to update the BRANCH variable with the current branch information from `vcs_info`. This `BRANCH` variable is then used in the PROMPT setting
