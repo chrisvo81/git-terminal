@@ -12,7 +12,8 @@ precmd_functions+=(precmd_vcs_info)
 # Function to update PS1 with vcs_info
 function precmd() {
     vcs_info
-    BRANCH="${vcs_info_msg_0_//[\(\)]/}"
+    BRANCH="${vcs_info_msg_0_#*\[}"
+    BRANCH="${BRANCH%\]*}"
 }
 
 # Customize the prompt
